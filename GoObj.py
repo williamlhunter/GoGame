@@ -1,8 +1,6 @@
 class Board(object):
 
     groups = {}
-    black_score = 0
-    white_score = 6.5
 
     def __init__(self, size):
         self.size = size
@@ -11,14 +9,17 @@ class Board(object):
             row = []
             for j in range(size):
                 row.append(Point(i, j))
-            grid.append(row)
+            self.grid.append(row)
     
     
-    # places a piece at the given 
+    # places a piece at the given coords
     def place(self, color, x, y):
-        pass
+        self.grid[x][y].place(color)
     
-    def 
+    def remove(self, color):
+        self.grid[x][y].remove(color)
+    
+    def switch_turn = 
     
 class Point(object):
 
@@ -56,4 +57,3 @@ class Group(object):
     # returns the coords of the members of a group
     def get_members(self):
         pass
-        
