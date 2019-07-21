@@ -10,9 +10,8 @@ class Board(object):
         for i in range(size):
             row = []
             for j in range(size):
-                row.append(Point())
+                row.append(Point(i, j))
             grid.append(row)
-    
     
     
     def place(self, color, x, y):
@@ -22,14 +21,17 @@ class Board(object):
     
 class Point(object):
 
-    def __init__(self):
-        pass
+    color = None
+
+    def __init__(self, x, y):
+        self.x_coord = x
+        self.y_coord = y
     
     def place(self, color):
-        pass
+        self.color = color
     
-    def get_adjacents(self):
-        pass
+    def remove(self)
+        color = None
 
 class Group(object):
 
