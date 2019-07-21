@@ -52,14 +52,24 @@ class Game(object):
         'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
 
     def __init__(self, size, groups = []):
+        self.size = size
         self.board = Board(size, groups)
     
     # performs all actions relevant to a turn.  returns true if the game is over
     def next_turn(self):
         self.turn_number += 1
         color = self.teams[self.turn_number%2]
-        print(f"\n{color}'s turn, where would you like to play?")
-        input("\n> ")
+        while, True:
+            print(f"\n{color}'s turn, where would you like to play?")
+            couplet = input("\n> ")
+            if len(couplet) is not 2:
+                print('\nPlease specify your move in the form "A9".  Try agian.')
+                continue
+            if couplet[0] in cols and couplet[1] < self.size and couplet[1] >= 0:
+                print(couplet_to_coords(couplet))
+                break
+            else:
+                print('\nPlease specify your move in the form "A9".  Try agian.')
         return False
 
     # returns a 2d tuple containing the coords associated with a couplet ex: "A0" -> (0, 0)
