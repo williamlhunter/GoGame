@@ -1,6 +1,6 @@
 class Board(object):
 
-    groups = {}
+    groups = []
 
     def __init__(self, size):
         self.size = size
@@ -8,7 +8,7 @@ class Board(object):
         for i in range(size):
             row = []
             for j in range(size):
-                row.append(Point(i, j))
+                row.append(Point())
             self.grid.append(row)
     
     
@@ -25,10 +25,6 @@ class Point(object):
 
     color = None
 
-    def __init__(self, x, y):
-        self.x_coord = x
-        self.y_coord = y
-    
     def place(self, color):
         if color is None:
             self.color = color
