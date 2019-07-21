@@ -64,8 +64,8 @@ class Game(object):
 
     # returns a 2d tuple containing the coords associated with a couplet ex: "A0" -> (0, 0)
     def couplet_to_coords(couplet):
-        pass
+        return (cols.index(couplet[0]), int(couplet[1]))
     
     # given a set of coords returns the associated couplet ex: (0, 0)
     def coords_to_couplet(coords):
-        return(cols[coords[0]] + str(coords[1]))
+        return cols[coords[0]] + str(coords[1])
