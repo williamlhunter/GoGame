@@ -1,55 +1,33 @@
-class Point(object):
-
-    color = None
-
-    def place(self, color):
-        if color is None:
-            self.color = color
-        else:
-            raise Exception ('tried to place a stone where there is already one')
-    
-    def remove(self)
-        if color is 'white' or color is 'black'
-            color = None
-        else:
-            raise Exception('Tried to remove a stone where there is none')
-
 class Group(object):
 
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    def __init__(self, color, x, y):
+        self.color = color
+        self.points = [(x,y)]
     
-    # returns a list with all the liberties for a group
-    def get_liberties(self, board):
+    # merges points from another group into this group.  other group should be subsequently deleted.
+    def merge(self, other):
+        if self.color == other.color:
+            self.points += other.points
+            self.calc_liberties()
+            #TODO fix this
+    
+    #returns all points adjacent to a group
+    def get_adjacent_points(self):
         pass
     
-    # reutrns the number of liberties of a group
-    def get_num_liberties(self, board):
-        pass
-    
-    # returns the coords of the members of a group
-    def get_members(self):
-        pass
 
 class Board(object):
 
     groups = []
 
     def __init__(self, size):
-        self.size = size
-        self.grid = []
-        for i in range(size):
-            row = []
-            for j in range(size):
-                row.append(Point())
-            self.grid.append(row)
+        pass
     
     
     # places a piece at the given coords
     def place(self, color, x, y):
-        self.grid[x][y].place(color)
+        pass
     
     def remove(self, color):
-        self.grid[x][y].remove(color)
+        pass
     
