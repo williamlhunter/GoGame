@@ -14,6 +14,7 @@ class Board(object):
             grid.append(row)
     
     
+    # places a piece at the given 
     def place(self, color, x, y):
         pass
     
@@ -28,10 +29,16 @@ class Point(object):
         self.y_coord = y
     
     def place(self, color):
-        self.color = color
+        if color is None:
+            self.color = color
+        else:
+            raise Exception ('tried to place a stone where there is already one')
     
     def remove(self)
-        color = None
+        if color is 'white' or color is 'black'
+            color = None
+        else:
+            raise Exception('Tried to remove a stone where there is none')
 
 class Group(object):
 
