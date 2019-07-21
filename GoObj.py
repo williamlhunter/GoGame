@@ -1,3 +1,37 @@
+class Point(object):
+
+    color = None
+
+    def place(self, color):
+        if color is None:
+            self.color = color
+        else:
+            raise Exception ('tried to place a stone where there is already one')
+    
+    def remove(self)
+        if color is 'white' or color is 'black'
+            color = None
+        else:
+            raise Exception('Tried to remove a stone where there is none')
+
+class Group(object):
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+    # returns a list with all the liberties for a group
+    def get_liberties(self, board):
+        pass
+    
+    # reutrns the number of liberties of a group
+    def get_num_liberties(self, board):
+        pass
+    
+    # returns the coords of the members of a group
+    def get_members(self):
+        pass
+
 class Board(object):
 
     groups = []
@@ -19,37 +53,3 @@ class Board(object):
     def remove(self, color):
         self.grid[x][y].remove(color)
     
-    def switch_turn = 
-    
-class Point(object):
-
-    color = None
-
-    def place(self, color):
-        if color is None:
-            self.color = color
-        else:
-            raise Exception ('tried to place a stone where there is already one')
-    
-    def remove(self)
-        if color is 'white' or color is 'black'
-            color = None
-        else:
-            raise Exception('Tried to remove a stone where there is none')
-
-class Group(object):
-
-    def __init__(self):
-        pass
-    
-    # returns a list with all the liberties for a group
-    def get_liberties(self, board):
-        pass
-    
-    # reutrns the number of liberties of a group
-    def get_num_liberties(self, board):
-        pass
-    
-    # returns the coords of the members of a group
-    def get_members(self):
-        pass
