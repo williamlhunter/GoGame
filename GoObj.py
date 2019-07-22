@@ -14,7 +14,7 @@ class Group(object):
     
     # merges points from another group into this group.  other group should be subsequently deleted.
     def merge(self, other):
-       pass 
+        self.members += other.members
     
     #returns all points adjacent to a group
     def get_adjacent_points(self):
