@@ -5,38 +5,35 @@ All instances of coords are a touple of zero indexed coordinates in the followin
 class Group(object):
 
     liberties = [] # list of coords
-    members = []
+    points = []
 
     def __init__(self, color, coords, size):
         self.size = size
         self.color = color
-        self.members = [coords]
+        self.points = [coords]
     
     # merges points from another group into this group.  other group should be subsequently deleted.
     def merge(self, other):
-        self.members += other.members
+        self.points += other.points
     
     #returns all points adjacent to a group
     def get_adjacent_points(self):
         direction_vectors = ((1, 0), (0, 1), (-1, 0), (0, -1))
         points = []
-        for point in self.members:
+        for point in self.points:
             for direction in direction_vectors:
                 check = (point[0]+direction[0], point[1]+direction[1])
-                if check not in self.members and check not in points:
+                if check not in self.points and check not in points:
                     if check[0] >= 0 and check[0] < self.size and check[1] >= 0 and check[1] <self.size:
                         points.append(check)
         return points
     
-    # sets the liberties of a group to the given tuple of coords 
-    def set_liberties(self, *coords):
-        pass
-
-    
-
 class Board(object):
 
+    str_translator = {None: " + ", "Black": " B ", "White": " W "}
+    
     def __init__(self, size, groups):
+        self.groups = groups
         self.matrix = []
         for i in range(size):
             row = []
@@ -44,28 +41,37 @@ class Board(object):
                 row.append(None)
             self.matrix.append(row)
         for group in groups:
-            for member in group.members:
-                self.matrix[member[0]][member[1]] = group.color
+            for point in group.points:
+                self.matrix[point[0]][point[1]] = group.color
     
     def __str__(self):
         formatted = '\n'
         for row in self.matrix:
             for col in row:
-                if col is None:
-                    formatted += " + "
-                elif col is "Black":
-                    formatted += " B "
-                elif col is "White":
-                    formatted += " W "
-                else:
-                    raise Exception('Something went wrong when turning a board into a string')
+                formatted += self.str_translator[col]
             formatted += "\n\n"
-        return formatted    
+        return formatted
+
+    # returns a list of groups that are dead
+    def compute_kills(self):
+        kills = []
+        for group in self.groups:
+            liberties = self.find_liberties(group)
+            if len(liberties) is 0:
+                kills.append(group)
+        return kills
+    
+    # returns a list of liberties for a group
+    def find_liberties(self, group):
+        liberties = []
+        for point in group.get_adjacent_points():
+            if self.matrix[point[0]][point[1]] is None:
+                liberties.append(point)
+        return liberties
     
 class Game(object):
     
-    black_score = 0
-    white_score = 6.5
+    score = {"Black": 0, "White": 6.5}
 
     teams = ('White', 'Black')
     turn_number = 0
@@ -91,7 +97,6 @@ class Game(object):
             if couplet == "PASS":
                 if last_turn_passed is False:
                     last_turn_passed = True
-                print(self.matrix[member[0]][member[1]])
                     return False
                 # TODO implement passing
             if len(couplet) is not 2:
@@ -106,12 +111,19 @@ class Game(object):
         for point in move.get_adjacent_points():
             for group in list(self.groups):
                 if group.color is color:
-                    if point in group.members:
+                    if point in group.points:
                         move.merge(group)
                         self.groups.remove(group)
         self.groups.append(move)
         self.board = Board(self.size, self.groups)
+        kills = self.board.compute_kills()
+        if len(kills) is not 0:
+            for kill in kills:
+                self.score[color] += len(kill.points)
+                self.groups.remove(kill)
+            self.board = Board(self.size, self.groups)
         print(self.board)
+        self.print_score()
 
         return False
 
@@ -119,6 +131,6 @@ class Game(object):
     def couplet_to_coords(self, couplet):
         return (self.cols.index(couplet[0]), int(couplet[1]))
     
-    # given a set of coords returns the associated couplet ex: (0, 0)
-    def coords_to_couplet(self, coords):
-        return cols[coords[0]] + str(coords[1])
+    def print_score(self):
+        print("\nWhite: {}".format(self.score["White"]))
+        print("Black: {}".format(self.score["Black"]))
