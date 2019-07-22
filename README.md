@@ -14,3 +14,4 @@ I'm writing a program that allows two people to play go.  To run it simply run `
 ### TODO for current phase (1):
 - Check for illegal moves (suicide, ko)
 - Improve scoring to account for territory held by each side at the end
+- Add support for moves on to rows higher than 10
