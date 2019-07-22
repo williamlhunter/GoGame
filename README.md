@@ -5,7 +5,7 @@ I'm writing a program that allows two people to play go.  To run it simply run `
 1. Get the game to work accurately in the terminal
     - Allow for moves while remembering state and score
     - Check for illegal moves
-    - Implement accurate scoring.  To make this easier, I will use Chinese Scoring.
+    - Implement accurate scoring.  To make this easier, I will use Chinese Scoring
 2. Port the program into a webapp using flask
     - Implement a gui
     - Port to browser
