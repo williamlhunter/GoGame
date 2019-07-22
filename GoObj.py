@@ -37,14 +37,15 @@ class Group(object):
 class Board(object):
 
     def __init__(self, size, groups):
-        pass
-    
-    # places a piece at the given coords
-    def place(self, color, coords):
-        pass
-    
-    def remove(self, color, coords):
-        pass
+        self.matrix = []
+        for i in range(size):
+            row = []
+            for j in range(size):
+                row.append(None)
+            self.matrix.append(row)
+        for group in groups:
+            for member in group.members:
+                self.matrix[member[0]][member[1]] = group.color
     
 class Game(object):
     
