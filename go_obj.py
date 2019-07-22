@@ -99,17 +99,18 @@ class Game(object):
     def next_turn(self):
         self.turn_number += 1
         color = self.teams[self.turn_number%2]
+        print(self.board)
         while True:
             print(f"\n{color}'s turn, where would you like to play?")
             couplet = input("\n> ").upper()
             if couplet == "PASS":
+                if color is "White":
+                    other_color = "Black"
+                else:
+                    other_color = "White"
+                self.score[other_color] += 1
                 if self.last_turn_passed is False:
                     self.last_turn_passed = True
-                    if color is "White":
-                        other_color = "Black"
-                    else:
-                        other_color = "White"
-                    self.score[other_color] += 1
                     print("\nPassing Turn")
                     self.print_score()
                     return False
@@ -141,7 +142,6 @@ class Game(object):
                 self.score[color] += len(kill.points)
                 self.groups.remove(kill)
             self.board = Board(self.size, self.groups)
-        print(self.board)
         self.print_score()
         return False
 
