@@ -27,8 +27,12 @@ class Group(object):
 class Board(object):
 
     str_translator = {None: " + ", "Black": " B ", "White": " W "}
+
+    cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J',
+        'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
     
     def __init__(self, size, groups):
+        self.size = size
         self.groups = groups
         self.matrix = []
         for i in range(size):
@@ -42,8 +46,12 @@ class Board(object):
     
     # formats a Board for printing
     def __str__(self):
-        formatted = '\n'
-        for row in self.matrix:
+        formatted = '\n   '
+        for i in range(self.size):
+            formatted += " " + self.cols[i] + " "
+        formatted += '\n\n'
+        for ite, row in enumerate(self.matrix):
+            formatted += str(ite) + '  '
             for col in row:
                 formatted += self.str_translator[col]
             formatted += "\n\n"
