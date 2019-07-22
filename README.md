@@ -1,5 +1,5 @@
 # GoGame
-I'm writing a program that allows two people to play go.
+I'm writing a program that allows two people to play go.  To run it simply run `GoGame.py` in it's directory
 
 ### Phases:
 1. Get the game to work accurately in the terminal
