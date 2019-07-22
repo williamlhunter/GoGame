@@ -59,9 +59,9 @@ class Game(object):
     cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J',
         'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
 
-    def __init__(self, size, groups = []):
+    def __init__(self, size):
         self.size = size
-        self.board = Board(size, groups)
+        self.board = Board(size, self.groups)
         self.cols = self.cols[:size-1]
         self.rows = range(size)
     
@@ -91,9 +91,7 @@ class Game(object):
                         move.merge(group)
                         self.groups.remove(group)
         self.groups.append(move)
-        for group in self.groups:
-            for member in group.members:
-                print(member)
+        board = Board(self.size, self.groups)
 
         return False
 
