@@ -9,6 +9,6 @@ I'm writing a program that allows two people to play go.
 2. Port the program into a webapp using flask
 3. allow two people to connect to the webserver, choose sides, and play on separate browsers.
 
-### TODO
+### TODO for current phase (1)
 - Check for illegal moves (suicide, ko)
 - Improve scoring to account for territory held by each side at the end
