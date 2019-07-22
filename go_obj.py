@@ -117,7 +117,7 @@ class Game(object):
                     print(self.board)
                     return True
             if len(couplet) is not 2:
-                print('\nPlease specify your move in the form "A9"')
+                print('\nPlease specify your move in the form "A9" or "pass"')
                 continue
             if couplet[0] in self.cols and int(couplet[1]) in self.rows:
                 self.last_turn_passed = False
