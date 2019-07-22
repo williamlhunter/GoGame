@@ -143,7 +143,7 @@ class Game(object):
 
     # returns a 2d tuple containing the coords associated with a couplet ex: "A0" -> (0, 0)
     def couplet_to_coords(self, couplet):
-        return (self.cols.index(couplet[0]), int(couplet[1]))
+        return (int(couplet[1]), self.cols.index(couplet[0]))
     
     #prints the score, ugly but easier than making an entire score class with a __str__ method
     def print_score(self):
