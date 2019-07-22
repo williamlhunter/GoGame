@@ -1,7 +1,3 @@
-"""
-All instances of coords are a touple of zero indexed coordinates in the following order: (column, row)
-"""
-
 class Group(object):
 
     liberties = [] # list of coords
@@ -44,6 +40,7 @@ class Board(object):
             for point in group.points:
                 self.matrix[point[0]][point[1]] = group.color
     
+    # formats a Board for printing
     def __str__(self):
         formatted = '\n'
         for row in self.matrix:
@@ -95,10 +92,20 @@ class Game(object):
             print(f"\n{color}'s turn, where would you like to play?")
             couplet = input("\n> ").upper()
             if couplet == "PASS":
-                if last_turn_passed is False:
-                    last_turn_passed = True
+                if self.last_turn_passed is False:
+                    self.last_turn_passed = True
+                    if color is "White":
+                        other_color = "Black"
+                    else:
+                        other_color = "White"
+                    self.score[other_color] += 1
+                    print("\nPassing Turn")
+                    self.print_score()
                     return False
-                # TODO implement passing
+                else:
+                    print("\nEnding Game...")
+                    print(self.board)
+                    return True
             if len(couplet) is not 2:
                 print('\nPlease specify your move in the form "A9"')
                 continue
@@ -124,13 +131,13 @@ class Game(object):
             self.board = Board(self.size, self.groups)
         print(self.board)
         self.print_score()
-
         return False
 
     # returns a 2d tuple containing the coords associated with a couplet ex: "A0" -> (0, 0)
     def couplet_to_coords(self, couplet):
         return (self.cols.index(couplet[0]), int(couplet[1]))
     
+    #prints the score, ugly but easier than making an entire score class with a __str__ method
     def print_score(self):
         print("\nWhite: {}".format(self.score["White"]))
         print("Black: {}".format(self.score["Black"]))
