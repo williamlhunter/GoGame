@@ -10,7 +10,7 @@ class Group(object):
     def __init__(self, color, coords, size):
         self.size = size
         self.color = color
-        self.points = [coords]
+        self.members = [coords]
     
     # merges points from another group into this group.  other group should be subsequently deleted.
     def merge(self, other):
@@ -18,9 +18,9 @@ class Group(object):
     
     #returns all points adjacent to a group
     def get_adjacent_points(self):
-        direction_vectors = ((1, 0), ((0,1), (-1,0), (0, -1))
+        direction_vectors = ((1, 0), (0,1), (-1,0), (0, -1))
         points = []
-        for point in members:
+        for point in self.members:
             for direction in direction_vectors:
                 check = point[0]+direction[0], point[1]+direction[1] 
                 if check not in members and check not in points:
