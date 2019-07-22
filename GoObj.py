@@ -5,10 +5,12 @@ All instances of coords are a touple of zero indexed coordinates in the followin
 class Group(object):
 
     liberties = [] # list of coords
+    members = []
 
     def __init__(self, color, coords, size):
+        self.size = size
         self.color = color
-        self.points = [(x,y)]
+        self.points = [coords]
     
     # merges points from another group into this group.  other group should be subsequently deleted.
     def merge(self, other):
@@ -16,7 +18,15 @@ class Group(object):
     
     #returns all points adjacent to a group
     def get_adjacent_points(self):
-        pass
+        direction_vectors = ((1, 0), ((0,1), (-1,0), (0, -1))
+        points = []
+        for point in members:
+            for direction in direction_vectors:
+                check = point[0]+direction[0], point[1]+direction[1] 
+                if check not in members and check not in points:
+                    if check[0] >= 0 and check[0] < self.size and check[1] >= 0 and check[1] <self.size:
+                        points.append(check)
+        return points
     
     # sets the liberties of a group to the given tuple of coords 
     def set_liberties(self, *coords):
@@ -62,13 +72,14 @@ class Game(object):
         while True:
             print(f"\n{color}'s turn, where would you like to play?")
             couplet = input("\n> ").upper()
-            if couplet == "PASS"
+            if couplet == "PASS":
+                pass
                 # TODO implement passing
             if len(couplet) is not 2:
                 print('\nPlease specify your move in the form "A9"')
                 continue
             if couplet[0] in self.cols and int(couplet[1]) in self.rows:
-                coords = couplet_to_coords(couplet)
+                coords = self.couplet_to_coords(couplet)
                 break
             else:
                 print('\nOut of Bounds')
