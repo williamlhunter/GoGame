@@ -26,7 +26,7 @@ class Group(object):
     
 class Board(object):
 
-    str_translator = {None: " + ", "Black": " B ", "White": " W "}
+    str_translator = {None: " +  ", "Black": " B  ", "White": " W  "}
 
     cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J',
         'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
@@ -48,9 +48,10 @@ class Board(object):
     def __str__(self):
         formatted = '\n    '
         for i in range(self.size):
-            formatted += " " + str(self.cols[i]) + " "
-        formatted += '\n\n'
+            formatted += " " + str(self.cols[i]) + "  "
+        formatted += '\n'
         for ite, row in enumerate(self.matrix):
+            formatted += "\n"
             if ite + 1 < 10:
                 formatted += " "
             formatted += str(ite + 1) + '  '
