@@ -46,15 +46,17 @@ class Board(object):
     
     # formats a Board for printing
     def __str__(self):
-        formatted = '\n   '
+        formatted = '\n    '
         for i in range(self.size):
-            formatted += " " + self.cols[i] + " "
+            formatted += " " + str(self.cols[i]) + " "
         formatted += '\n\n'
         for ite, row in enumerate(self.matrix):
-            formatted += str(ite) + '  '
+            if ite + 1 < 10:
+                formatted += " "
+            formatted += str(ite + 1) + '  '
             for col in row:
                 formatted += self.str_translator[col]
-            formatted += "\n\n"
+            formatted += "\n"
         return formatted
 
     # returns a list of groups that are dead
@@ -90,7 +92,7 @@ class Game(object):
         self.size = size
         self.board = Board(size, self.groups)
         self.cols = self.cols[:size-1]
-        self.rows = range(size)
+        self.rows = range(1, size + 1)
     
     # performs all actions relevant to a turn.  returns true if the game is over
     def next_turn(self):
@@ -118,6 +120,7 @@ class Game(object):
                 print('\nPlease specify your move in the form "A9"')
                 continue
             if couplet[0] in self.cols and int(couplet[1]) in self.rows:
+                self.last_turn_passed = False
                 coords = self.couplet_to_coords(couplet)
                 break
             else:
@@ -143,7 +146,7 @@ class Game(object):
 
     # returns a 2d tuple containing the coords associated with a couplet ex: "A0" -> (0, 0)
     def couplet_to_coords(self, couplet):
-        return (int(couplet[1]), self.cols.index(couplet[0]))
+        return (int(couplet[1])-1, self.cols.index(couplet[0]))
     
     #prints the score, ugly but easier than making an entire score class with a __str__ method
     def print_score(self):
