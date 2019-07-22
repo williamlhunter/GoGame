@@ -18,11 +18,11 @@ class Group(object):
     
     #returns all points adjacent to a group
     def get_adjacent_points(self):
-        direction_vectors = ((1, 0), (0,1), (-1,0), (0, -1))
+        direction_vectors = ((1, 0), (0, 1), (-1, 0), (0, -1))
         points = []
         for point in self.members:
             for direction in direction_vectors:
-                check = point[0]+direction[0], point[1]+direction[1] 
+                check = (point[0]+direction[0], point[1]+direction[1])
                 if check not in self.members and check not in points:
                     if check[0] >= 0 and check[0] < self.size and check[1] >= 0 and check[1] <self.size:
                         points.append(check)
@@ -46,6 +46,21 @@ class Board(object):
         for group in groups:
             for member in group.members:
                 self.matrix[member[0]][member[1]] = group.color
+    
+    def __str__(self):
+        formatted = '\n'
+        for row in self.matrix:
+            for col in row:
+                if col is None:
+                    formatted += " + "
+                elif col is "Black":
+                    formatted += " B "
+                elif col is "White":
+                    formatted += " W "
+                else:
+                    raise Exception('Something went wrong when turning a board into a string')
+            formatted += "\n\n"
+        return formatted    
     
 class Game(object):
     
@@ -74,7 +89,10 @@ class Game(object):
             print(f"\n{color}'s turn, where would you like to play?")
             couplet = input("\n> ").upper()
             if couplet == "PASS":
-                pass
+                if last_turn_passed is False:
+                    last_turn_passed = True
+                print(self.matrix[member[0]][member[1]])
+                    return False
                 # TODO implement passing
             if len(couplet) is not 2:
                 print('\nPlease specify your move in the form "A9"')
@@ -92,7 +110,8 @@ class Game(object):
                         move.merge(group)
                         self.groups.remove(group)
         self.groups.append(move)
-        board = Board(self.size, self.groups)
+        self.board = Board(self.size, self.groups)
+        print(self.board)
 
         return False
 
