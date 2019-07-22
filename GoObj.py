@@ -23,7 +23,7 @@ class Group(object):
         for point in self.members:
             for direction in direction_vectors:
                 check = point[0]+direction[0], point[1]+direction[1] 
-                if check not in members and check not in points:
+                if check not in self.members and check not in points:
                     if check[0] >= 0 and check[0] < self.size and check[1] >= 0 and check[1] <self.size:
                         points.append(check)
         return points
