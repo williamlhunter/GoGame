@@ -85,8 +85,16 @@ class Game(object):
                 print('\nOut of Bounds')
         move = Group(color, coords, self.size)
         for point in move.get_adjacent_points():
-            pass
-            # TODO implement this
+            for group in list(self.groups):
+                if group.color is color:
+                    if point in group.members:
+                        move.merge(group)
+                        self.groups.remove(group)
+        self.groups.append(move)
+        for group in self.groups:
+            for member in group.members:
+                print(member)
+
         return False
 
     # returns a 2d tuple containing the coords associated with a couplet ex: "A0" -> (0, 0)
