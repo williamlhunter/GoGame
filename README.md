@@ -3,8 +3,6 @@ I'm writing a program that allows two people to play go.  To run it simply run `
 
 ### Phases:
 1. Get the game to work accurately in the terminal
-    - Allow for moves while remembering state and score
-    - Check for illegal moves
     - Implement accurate scoring.  To make this easier, I will use Chinese scoring
 2. Port the program into a webapp using flask
     - Implement a gui
@@ -12,6 +10,7 @@ I'm writing a program that allows two people to play go.  To run it simply run `
 3. Allow two people to connect to the webserver, choose sides, and play on separate browsers
 
 ### TODO for current phase (1):
-- Check for illegal moves (suicide, ko)
+- Check for ko
+- Write board_matrix object to separate the board state from the groups
+- Remove all references to game.groups
 - Improve scoring to account for territory held by each side at the end
-- Add support for moves on to rows higher than 10
